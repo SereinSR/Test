@@ -18,12 +18,6 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Debug (show files)
-        run: |
-          ls -R
-          echo "Java files found:"
-          find . -name "*.java" -print
-
       - name: Compile (auto-find)
         run: |
           mkdir -p out
