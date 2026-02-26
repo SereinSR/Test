@@ -24,7 +24,7 @@ jobs:
           javac -d out $(find . -name "*.java")
 
       - name: Run InputWriter (creates inputs.txt)
-        run: |
+      run: |
           java -cp out InputWriter
           
 
