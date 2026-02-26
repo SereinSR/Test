@@ -1,16 +1,6 @@
 name: Java Sum Pipeline
 
 on:
-  workflow_dispatch:
-    inputs:
-      a:
-        description: "First integer"
-        required: true
-        default: "3"
-      b:
-        description: "Second integer"
-        required: true
-        default: "4"
   push:
     branches: [ "main" ]
 
