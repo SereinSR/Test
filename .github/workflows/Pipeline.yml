@@ -33,10 +33,4 @@ jobs:
           java -cp out SumReader
           
 
-      - name: Upload outputs
-        uses: actions/upload-artifact@v4
-        with:
-          name: outputs
-          path: |
-            inputs.txt
-            sum.txt
+     
