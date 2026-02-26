@@ -24,10 +24,14 @@ jobs:
           javac -d out $(find . -name "*.java")
 
       - name: Run InputWriter (creates inputs.txt)
-        run: cat inputs.txt
+        run: |
+          java -cp out InputWriter
+          cat inputs.txt
 
       - name: Run SumReader (reads inputs.txt, creates sum.txt)
-        run: cat sum.txt
+        run: |
+          java -cp out SumReader
+          cat sum.txt
 
       - name: Upload outputs
         uses: actions/upload-artifact@v4
