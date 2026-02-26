@@ -1,0 +1,63 @@
+name: Java Sum Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      a:
+        description: "First integer"
+        required: true
+        default: "3"
+      b:
+        description: "Second integer"
+        required: true
+        default: "4"
+  push:
+    branches: [ "main" ]
+
+jobs:
+  run-java:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Debug (show files)
+        run: |
+          ls -R
+          echo "Java files found:"
+          find . -name "*.java" -print
+
+      - name: Compile (auto-find)
+        run: |
+          mkdir -p out
+          javac -d out $(find . -name "*.java")
+
+      - name: Run InputWriter (creates inputs.txt)
+        env:
+          A: ${{ github.event.inputs.a || '10' }}
+          B: ${{ github.event.inputs.b || '20' }}
+        run: |
+          printf "%s\n%s\n" "$A" "$B" | java -cp out InputWriter
+          echo "Created inputs.txt:"
+          cat inputs.txt
+
+      - name: Run SumReader (reads inputs.txt, creates sum.txt)
+        run: |
+          java -cp out SumReader
+          echo "Created sum.txt:"
+          cat sum.txt
+
+      - name: Upload outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: outputs
+          path: |
+            inputs.txt
+            sum.txt
