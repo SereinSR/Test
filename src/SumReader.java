@@ -20,4 +20,5 @@ public class SumReader {
         Files.writeString(Path.of("sum.txt"), out + System.lineSeparator());
         System.out.println("Saved result to sum.txt");
     }
+}
 
